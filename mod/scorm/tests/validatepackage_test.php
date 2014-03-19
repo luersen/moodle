@@ -75,6 +75,11 @@ class mod_scorm_validatepackage_testcase extends advanced_testcase {
         $errors = scorm_validate_package($file);
         $this->assertEmpty($errors);
 
+        $filename = "validaicc_upcase_ext.zip";
+        $file = $this->create_stored_file_from_path($CFG->dirroot.'/mod/scorm/tests/packages/'.$filename, file_archive::OPEN);
+        $errors = scorm_validate_package($file);
+        $this->assertEmpty($errors);
+
         $filename = "invalid.zip";
         $file = $this->create_stored_file_from_path($CFG->dirroot.'/mod/scorm/tests/packages/'.$filename, file_archive::OPEN);
         $errors = scorm_validate_package($file);
