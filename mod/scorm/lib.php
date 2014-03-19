@@ -1377,7 +1377,7 @@ function scorm_validate_package($file) {
                 // This package has an imsmanifest file inside a folder of the package.
                 $badmanifestpresent = true;
             }
-            if (preg_match('/\.cst$/', $info->pathname)) {
+            if (preg_match('/\.cst$/i', $info->pathname)) {
                 return array();
             }
         }
