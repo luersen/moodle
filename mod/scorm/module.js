@@ -67,6 +67,14 @@ M.mod_scorm.init = function(Y, nav_display, navposition_left, navposition_top, h
             });
         };
 
+        Y.TreeView.prototype.closeAll = function () {
+            var tree = this;
+            Y.all('.yui3-treeview-can-have-children').each(function() {
+                var node = tree.getNodeById(this.get('id'));
+                node.close();
+            });
+        }
+
         // TODO: Remove next(), previous() prototype functions after YUI has been updated to 3.11.0 - MDL-41208.
         Y.Tree.Node.prototype.next = function () {
             if (this.parent) {
@@ -141,6 +149,7 @@ M.mod_scorm.init = function(Y, nav_display, navposition_left, navposition_top, h
                 scorm_current_node.select();
             }
 
+            scorm_tree_node.closeAll();
             // remove any reference to the old API
             if (window.API) {
                 window.API = null;
@@ -202,6 +211,7 @@ M.mod_scorm.init = function(Y, nav_display, navposition_left, navposition_top, h
                 }
                 scorm_fixnav();
             }
+            scorm_tree_node.openAll();
         };
 
         mod_scorm_activate_item = scorm_activate_item;
