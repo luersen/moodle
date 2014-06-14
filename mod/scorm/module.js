@@ -644,11 +644,11 @@ M.mod_scorm.init = function(Y, nav_display, navposition_left, navposition_top, h
         // navigation
         if (scorm_hide_nav == false) {
             // TODO: make some better&accessible buttons.
-            var navbuttonshtml = '<span id="scorm_nav"><button id="nav_skipprev">&lt;&lt;</button>&nbsp;<button id="nav_prev">&lt;</button>'
+            var navbuttonshtml = '<button id="nav_skipprev">&lt;&lt;</button>&nbsp;<button id="nav_prev">&lt;</button>'
                     + '&nbsp;<button id="nav_up">^</button>&nbsp;<button id="nav_next">&gt;</button>'
-                    + '&nbsp;<button id="nav_skipnext">&gt;&gt;</button></span>';
+                    + '&nbsp;<button id="nav_skipnext">&gt;&gt;</button>';
             if (nav_display === 1) {
-                Y.one('#scorm_navpanel').setHTML(navbuttonshtml);
+                Y.one('#scorm_navpanel').setHTML('<span id="scorm_nav">'+navbuttonshtml+'</span>');
             } else {
                 // Nav panel is floating type.
                 var navposition = null;
@@ -662,17 +662,17 @@ M.mod_scorm.init = function(Y, nav_display, navposition_left, navposition_top, h
                     navposition[0] = parseInt(navposition_left, 10);
                     navposition[1] = parseInt(navposition_top, 10);
                 }
-                scorm_nav_panel = new Y.Panel({
-                    fillHeight: "body",
-                    headerContent: M.util.get_string('navigation', 'scorm'),
-                    visible: true,
-                    xy: navposition,
-                    zIndex: 999
+                Y.one('#scorm_navpanel').setHTML('<span id="scorm_nav"><img id="drag_cursor" src="'+scormplayerdata.dragpic_url+'"/>'+navbuttonshtml+'</span>');
+
+                YUI().use('dd-plugin', 'dd-scroll', function(Y) {
+                    var node = Y.one('#scorm_nav');
+                    node.plug(Y.Plugin.Drag);
+                    node.plug(Y.Plugin.DDWinScroll);
+                    node.dd.addHandle('#drag_cursor');
+                    node.setStyle('position', 'relative');
+                    node.setStyle('left', -navposition[0]);
+                    node.setStyle('top', -navposition[1]);
                 });
-                scorm_nav_panel.set('bodyContent', navbuttonshtml);
-                scorm_nav_panel.removeButton('close');
-                scorm_nav_panel.plug(Y.Plugin.Drag, {handles: ['.yui3-widget-hd']});
-                scorm_nav_panel.render();
             }
 
             scorm_buttons[0] = new Y.Button({

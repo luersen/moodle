@@ -154,6 +154,7 @@ if (empty($scorm->popup) || $displaymode == 'popup') {
     $exitlink = html_writer::link($CFG->wwwroot.'/course/view.php?id='.$scorm->course, $strexit, array('title' => $strexit));
     $PAGE->set_button($exitlink);
 }
+$dragpicurl = $OUTPUT->pix_url('dragdrop', 'scorm');
 
 $PAGE->requires->data_for_js('scormplayerdata', Array('launch' => false,
                                                        'currentorg' => '',
@@ -162,7 +163,8 @@ $PAGE->requires->data_for_js('scormplayerdata', Array('launch' => false,
                                                        'courseid' => $scorm->course,
                                                        'cwidth' => $scorm->width,
                                                        'cheight' => $scorm->height,
-                                                       'popupoptions' => $scorm->options), true);
+                                                       'popupoptions' => $scorm->options,
+                                                       'dragpic_url' => (string)$dragpicurl), true);
 $PAGE->requires->js('/mod/scorm/request.js', true);
 $PAGE->requires->js('/lib/cookies.js', true);
 echo $OUTPUT->header();
