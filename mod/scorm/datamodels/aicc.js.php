@@ -232,9 +232,12 @@ if ($count > 0) {
                         setTimeout('mod_scorm_launch_prev_sco();',500);
                     }
                 } else {
-                    if (<?php echo $scorm->auto ?> == 1) {
-                        setTimeout('mod_scorm_launch_next_sco();',500);
-                    }
+                    YUI().use('querystring-parse', "node", function(Y){
+                        var src = Y.Node.getDOMNode(Y.one('#scorm_object')).src;
+                        if (Y.QueryString.parse(src).preventauto !== 1) {
+                            setTimeout('mod_scorm_launch_next_sco();',500);
+                        }
+                    });
                 }
                 // trigger TOC update
                 var sURL = "<?php echo $CFG->wwwroot; ?>" + "/mod/scorm/prereqs.php?a=<?php echo $scorm->id ?>&scoid=<?php echo $scoid ?>&attempt=<?php echo $attempt ?>&mode=<?php echo $mode ?>&currentorg=<?php echo $currentorg ?>&sesskey=<?php echo sesskey(); ?>";

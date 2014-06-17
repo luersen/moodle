@@ -1663,9 +1663,9 @@ function scorm_format_toc_for_treeview($user, $scorm, $scoes, $usertracks, $cmid
                         $url = $CFG->wwwroot.'/mod/scorm/player.php?'.$sco->url;
                         if (!empty($sco->launch)) {
                             if ($sco->scormtype == 'sco') {
-                                $result->toc .= $sco->statusicon.'&nbsp;'.html_writer::link($url, format_string($sco->title)).$score;
+                                $result->toc .= $sco->statusicon.'&nbsp;'.html_writer::link($url.'&preventauto=1', format_string($sco->title)).$score;
                             } else {
-                                $result->toc .= '&nbsp;'.html_writer::link($url, format_string($sco->title), array('data-scoid' => $sco->id)).$score;
+                                $result->toc .= '&nbsp;'.html_writer::link($url.'&preventauto=1', format_string($sco->title), array('data-scoid' => $sco->id)).$score;
                             }
                         } else {
                             if ($sco->scormtype == 'sco') {
@@ -1678,9 +1678,9 @@ function scorm_format_toc_for_treeview($user, $scorm, $scoes, $usertracks, $cmid
                         if (!empty($sco->launch)) {
                             if ($sco->scormtype == 'sco') {
                                 $result->toc .= html_writer::tag('a', $sco->statusicon.'&nbsp;'.format_string($sco->title).'&nbsp;'.$score,
-                                                                    array('data-scoid' => $sco->id, 'title' => $sco->url));
+                                                                    array('data-scoid' => $sco->id, 'title' => $sco->url.'&preventauto=1'));
                             } else {
-                                $result->toc .= html_writer::tag('a', '&nbsp;'.format_string($sco->title).'&nbsp;'.$score, array('data-scoid' => $sco->id, 'title' => $sco->url));
+                                $result->toc .= html_writer::tag('a', '&nbsp;'.format_string($sco->title).'&nbsp;'.$score, array('data-scoid' => $sco->id, 'title' => $sco->url.'&preventauto=1'));
                             }
                         } else {
                             if ($sco->scormtype == 'sco') {

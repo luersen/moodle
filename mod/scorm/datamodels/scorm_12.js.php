@@ -220,9 +220,12 @@ function SCORMapi1_2() {
                         setTimeout('mod_scorm_launch_prev_sco();',500);
                     }
                 } else {
-                    if (<?php echo $scorm->auto ?> == 1) {
-                        setTimeout('mod_scorm_launch_next_sco();',500);
-                    }
+                    YUI().use('querystring-parse', "node", function(Y){
+                        var src = Y.Node.getDOMNode(Y.one('#scorm_object')).src;
+                        if (Y.QueryString.parse(src).preventauto !== 1) {
+                            setTimeout('mod_scorm_launch_next_sco();',500);
+                        }
+                    });
                 }
                 <?php
                     if (scorm_debugging($scorm)) {
